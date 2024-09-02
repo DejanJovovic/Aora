@@ -17,16 +17,6 @@ export const config = {
   storageId: "66d43d3f000d6ac45e4d",
 };
 
-const {
-  endpoint,
-  platfrom,
-  projectId,
-  databaseId,
-  userCollectionId,
-  videoCollectionId,
-  storageId,
-} = config;
-
 const client = new Client();
 
 client
@@ -100,11 +90,29 @@ export const getCurrentUser = async () => {
   }
 };
 
-export const getAllPosts = async () => {
+export async function getAllPosts() {
   try {
-    const posts = await databases.listDocuments(databaseId, videoCollectionId);
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId
+    );
+
     return posts.documents;
   } catch (error) {
     throw new Error(error);
   }
-};
+}
+
+export async function getLatestPosts() {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId,
+      [Query.orderDesc("$createdAt"), Query.limit(7)]
+    );
+
+    return posts.documents;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
