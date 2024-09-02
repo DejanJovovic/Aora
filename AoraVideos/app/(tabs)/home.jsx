@@ -7,6 +7,7 @@ import Trending from '../../components/Trending'
 import EmptyState from '../../components/EmptyState'
 import { getAllPosts } from '../../lib/appwrite'
 import useAppWrite from '../../lib/useAppWrite'
+import VideoCard from '../../components/VideoCard'
 
 const home = () => {
 
@@ -29,7 +30,8 @@ const home = () => {
       data={posts}
       keyExtractor={(item) => item.$id}
       renderItem={({item}) => (
-        <Text className="text-3xl text-white">{item.title}</Text>
+        <VideoCard
+        video={item}/>
       )}
       ListHeaderComponent={() => (
         <View className="my-6 px-4 space-y-6">
