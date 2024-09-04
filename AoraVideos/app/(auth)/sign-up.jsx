@@ -33,6 +33,7 @@ const SignUp = () => {
         form.password,
         form.username
       );
+      
       setUser(result);
       setIsLogged(true);
 
